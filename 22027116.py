@@ -17,6 +17,7 @@ import matplotlib.patches as mpatches
 from scipy.optimize import curve_fit
 from matplotlib.lines import Line2D
 from numpy.polynomial.polynomial import Polynomial
+import seaborn as sns
 
 
 Originalfilename = "API_NV.AGR.TOTL.ZS_DS2_en_csv_v2_5359510.csv"
@@ -126,27 +127,42 @@ for label, group in grouped:
     print(group.index.tolist())
     print()
 
-# Plot
-plt.figure(figsize=(6.0, 6.0))
-scatter = plt.scatter(df_cluster["1970"], df_cluster["2000"], c=labels, cmap='viridis')
-xc = cen[:,0]
-yc = cen[:,1]
-plt.scatter(xc, yc, c="k", marker="d", s=80)
+
+#Plot clustered graph
+
+# Adjust figure size
+plt.figure(figsize=(8.0, 6.0))
+
+# Set marker size and transparency
+marker_size = 120
+marker_alpha =1.0
+
+# Create scatter plot with seaborn
+scatter = sns.scatterplot(x="1970", y="2000", hue=labels, palette='viridis', data=df_cluster, s=marker_size, alpha=marker_alpha)
+
+# Add centroids
+xc = cen[:, 0]
+yc = cen[:, 1]
+plt.scatter(xc, yc, c="k", marker="d", s=120, alpha=1.0)
 
 # Set labels
 plt.xlabel("1970")
 plt.ylabel("2000")
 plt.title("Agriculture, forestry, and fishing, value added (% of GDP)")
 
+# Enable gridlines
+plt.grid(True)
+
 # Define cluster colors and labels
 colors = ['purple', 'green', 'blue', 'yellow']
 cluster_labels = ['Cluster 0', 'Cluster 1', 'Cluster 2', 'Cluster 3']
 
 # Create custom legend
-custom_legend = [Line2D([0], [0], marker='o', color='w', markerfacecolor=c, markersize=5) for c in colors]
+custom_legend = [Line2D([0], [0], marker='o', color='w', markerfacecolor=c, markersize=8) for c in colors]
 plt.legend(custom_legend, cluster_labels, title="Clusters", bbox_to_anchor=(1.05, 1), loc='upper left')
 
 plt.show()
+
 
 clusters = {
     0: ['Botswana', 'China', "Cote d'Ivoire", 'Costa Rica', 'Ecuador', 'Egypt, Arab Rep.', 'Honduras', 'Korea, Rep.', 'Lesotho', 'Malaysia', 'Philippines', 'Senegal', 'Eswatini', 'Thailand', 'Turkiye'],
