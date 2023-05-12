@@ -38,12 +38,12 @@ df_Gdp_Agric = df_Gdp_Agric.set_index('Country Name')
 
 print(df_Gdp_Agric)
 
-# Select 80 random countries
+# Select countries from large sample
 random_countries = df_Gdp_Agric.sample(n=50, replace=True, random_state=42)
 # Print the selected countries
 print(random_countries)
 
-# List of countries to remove not needed
+# List of countries not needed
 countries_to_remove = ['East Asia & Pacific (excluding high income)',
                        'East Asia & Pacific',
                        'IBRD only',
