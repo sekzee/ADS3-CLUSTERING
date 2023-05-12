@@ -18,6 +18,20 @@ from scipy.optimize import curve_fit
 from matplotlib.lines import Line2D
 from numpy.polynomial.polynomial import Polynomial
 
+
+Originalfilename = "API_NV.AGR.TOTL.ZS_DS2_en_csv_v2_5359510.csv"
+Originalfilename2 = "API_SP.POP.GROW_DS2_en_csv_v2_5358698.csv"      
+
+def process_agriculture_data(file_path):
+    """Process agricultural forestry, fishing value added(% GDP) data from world bank data renamed file name to read data."""
+    Newfile = 'GDPofAgric.csv'
+    df = pd.read_csv(file_path, skiprows=4)
+    df = df.dropna()
+    df = df.drop(['Indicator Code', 'Country Code', 'Indicator Name'], axis=1)
+    df = df.set_index('Country Name')
+    return df
+
+#Load Newfile in Dataframe and read the file
 df_Gdp_Agric = pd.read_csv("GDPofAgric.csv", skiprows=4)
 df_Gdp_Agric = df_Gdp_Agric.dropna().drop(['Indicator Code', 'Country Code', 'Indicator Name'], axis=1)
 df_Gdp_Agric = df_Gdp_Agric.set_index('Country Name')
@@ -150,6 +164,9 @@ for label, group in grouped:
 
 print(cluster_countries)
 
+Originalfilename2 = "API_SP.POP.GROW_DS2_en_csv_v2_5358698.csv"      
+Newfile = "POPgrowth.csv" #renamed original file 
+
 # Read file with population data into DataFrame
 df_popG = pd.read_csv("POPgrowth.csv", skiprows = 4)
 
@@ -271,6 +288,8 @@ for i, country in enumerate(countries):
 # Adjust layout for neatness
 plt.tight_layout()
 plt.show()
+
+
 
 
 
