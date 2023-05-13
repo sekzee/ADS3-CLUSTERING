@@ -164,11 +164,11 @@ def logistics(t, a, k, t0):
     """
     return a / (1.0 + np.exp(-k * (t - t0)))
 
-# Converting index to numeric and use it in curve fitting
 df_pop_countries.index = pd.to_numeric(df_pop_countries.index)
 
 popt, pcorr = opt.curve_fit(logistics, df_pop_countries.index, df_pop_countries["China"], p0=(16e8, 0.04, 1985.0))
 print("Fit parameter", popt)
+# Converting index to numeric and use it in curve fitting
 
 # Extract variances and calculate sigmas
 sigmas = np.sqrt(np.diag(pcorr))
@@ -247,13 +247,13 @@ years = np.arange(1950, 2051)
 # Calculate the upper and lower error ranges
 lower, upper = err.err_ranges(years, poly, popt, sigmas)
 
-# Plot the data, fit, and error ranges
+# Plot the data, fit, 
 plt.figure()
 plt.title("Polynomial Fit with Error Ranges")
 plt.plot(df_pop_countries.index, df_pop_countries["China"], label="Data")
 plt.plot(df_pop_countries.index, df_pop_countries["poly"], label="Fit")
 
-# Plot the error ranges with transparency
+# Plot the error ranges with correctness
 plt.fill_between(years, lower, upper, alpha=0.5, label="Error Ranges")
 
 plt.xlabel("Years")
@@ -287,6 +287,8 @@ df_pop_countries.index = df_pop_countries.index.astype(int)
 
 # Initialize a figure
 fig, axs = plt.subplots(1, 2, figsize=(15,7))
+
+
 
 # Loop over the countries in the list
 for i, country in enumerate(countries):
