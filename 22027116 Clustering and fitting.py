@@ -134,7 +134,7 @@ countries = ['China', 'Japan']
 
 print(countries)
 
-
+#define the countries
 df_pop_countries = df_pop.loc[countries]
 
 df_pop_countries = df_pop_countries.transpose()
@@ -305,6 +305,6 @@ for i, country in enumerate(countries):
     axs[i].set_title(f"Polynomial Fit for {country}")
     axs[i].legend(loc="upper left")
 
-# Adjust layout for neat presentation
+# print
 plt.tight_layout()
 plt.show()
